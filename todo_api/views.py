@@ -2,10 +2,10 @@ from rest_framework import generics
 from .models import Todo
 from .serializers import TodoSerializer
 from django.http import HttpResponse
-from .models import Todo
-from .serializers import TodoSerializer
 from rest_framework.response import Response
 from rest_framework import status
+from .models import Tarea
+from .serializers import TareaSerializer
 
 class TodoListCreate(generics.ListCreateAPIView):
     queryset = Todo.objects.all()
@@ -44,3 +44,11 @@ class TodoDeleteById(generics.DestroyAPIView):
             instance.delete()
         except Exception as e:
             return Response({"message": "No se pudo eliminar"}, status=status.HTTP_400_BAD_REQUEST)
+        
+class TareaListCreate(generics.ListCreateAPIView):
+    queryset = Tarea.objects.all()
+    serializer_class = TareaSerializer
+
+class TareaDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Tarea.objects.all()
+    serializer_class = TareaSerializer
